@@ -11,6 +11,8 @@ using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 using System.IO;
 
+//test
+
 namespace NetworkMgr
 {
     public partial class Main : Form
