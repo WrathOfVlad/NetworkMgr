@@ -34,8 +34,6 @@ namespace NetworkMgr
             openContactList();
 
         }
-
-
         public void setContactDetailPointer(ContactDetail contactDetail)
         {
             this.pointerToContactDetail = contactDetail;
@@ -44,12 +42,10 @@ namespace NetworkMgr
         {
             this.pointerToContactLog = contactLog;
         }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
         }
-
         private void listToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openContactList();
@@ -65,7 +61,6 @@ namespace NetworkMgr
             pointerToContactList.MdiParent = this;
             pointerToContactList.Show();
         }
-
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pointerToContactList.WindowState = FormWindowState.Maximized;
@@ -73,12 +68,10 @@ namespace NetworkMgr
             pointerToContactList.Show();
             pointerToContactList.addNewContact();
         }
-
         private void saveContactsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
-
         private void checkIfTodayNeedsANotification(string dateColumnName, string notificationMessage, string toastNotificationHeader)
         {
             DateTime date = DateTime.Today;
@@ -124,7 +117,6 @@ namespace NetworkMgr
 
             notifier.Show(notification);
         }
-
         private void Main_Load(object sender, EventArgs e)
         {
             checkIfTodayNeedsANotification("Birthday", "It's {0}'s birthday!","Birthday Notification");

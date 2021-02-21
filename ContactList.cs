@@ -16,13 +16,11 @@ namespace NetworkMgr
     {
         private Main pointerToMain = null;
         private StorageManager pointerToStorageManager = null;
-
+        private ContactDetail pointerToContactDetail = null;
         public ContactList()
         {
             InitializeComponent();
         }
-
-        private ContactDetail pointerToContactDetail = null;
         private void initiateContactDetail()
         {
             pointerToContactDetail = new ContactDetail();
@@ -48,7 +46,6 @@ namespace NetworkMgr
         {
             this.pointerToStorageManager = pointerToStorageManager;
         }
-
         private void ContactList_Load(object sender, EventArgs e)
         {
             initiateContactDetail();

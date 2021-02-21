@@ -13,7 +13,6 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Globalization;
 //using System.IO.Packaging;
-using Microsoft.Office.Interop.Word;
 using System.Diagnostics;
 
 namespace NetworkMgr
@@ -122,6 +121,8 @@ namespace NetworkMgr
             {
                 fillDataGridView();
             }
+
+            pointerToStorageManager.storageLocation.saveNotes(id, txtNotes.Text);
             //toggleEditable();
         }
         public void loadImage()
@@ -237,9 +238,8 @@ namespace NetworkMgr
         }
         private void loadNotes()
         {
-            pointerToStorageManager.getNotes(id);
-            //txtNotes.Rtf = pointerToStorageManager.notesStorageLocation.loadNotes();
-            txtNotes.ReadOnly = true;
+            //pointerToStorageManager.getNotes(id);
+            txtNotes.Text = pointerToStorageManager.storageLocation.loadNotes(id);
 
         }
         private void toggleEditable()
@@ -260,6 +260,7 @@ namespace NetworkMgr
                     }
                 }
                 dateBirthday.ReadOnly = true;
+                txtNotes.ReadOnly = true;
                 linkedinEditable.Visible = false;
                 FacebookEditable.Visible = false;
                 companyURLEditable.Visible = false;
@@ -282,6 +283,8 @@ namespace NetworkMgr
                     }
                 }
                 dateBirthday.ReadOnly = false;
+                txtNotes.ReadOnly = false;
+
                 linkedinEditable.Visible = true;
                 FacebookEditable.Visible = true;
                 companyURLEditable.Visible = true;
@@ -344,8 +347,8 @@ namespace NetworkMgr
         }
         private void txtNotes_TextChanged(object sender, MouseEventArgs e)
         {
-            string path = ((CSVManager)pointerToStorageManager.notesStorageLocation).path;
-            Process.Start(path);
+            //string path = ((CSVManager)pointerToStorageManager.notesStorageLocation).path;
+            //Process.Start(path);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -376,7 +379,6 @@ namespace NetworkMgr
 
             //int maxId =Int32.Parse(pointerToStorageManager.mainList.Select("Id = MAX(Id)")["id"]);
         }
-
         public string changeDateFormatting(string convertingTo, string originalDate)
         { 
             string final = "";
