@@ -147,7 +147,7 @@ namespace NetworkMgr
         public abstract string loadNotes(int id);
         public abstract void saveNotes(int id, string content);
         public abstract void openFileExplorer(int id);
-        public abstract void saveBackup();
+        public abstract void saveBackup(int id);
         public abstract void copyAll(DirectoryInfo source, DirectoryInfo target, string[] ignoreDir);
     }
     public class CSVManager : ProductBase
@@ -196,7 +196,7 @@ namespace NetworkMgr
             }
             else
             {
-                File.Create(notesPath);
+                File.Create(notesPath).Close();
             }
             
             return notesContent;
@@ -210,7 +210,7 @@ namespace NetworkMgr
             {
                 File.Delete(notesPath);
             }
-            File.Create(notesPath);
+            File.Create(notesPath).Close();
             File.WriteAllText(notesPath, content);
         }
         public override void save(System.Data.DataTable table)
@@ -306,7 +306,7 @@ namespace NetworkMgr
             path += Config.getIdDirectory(id);
             Process.Start("explorer.exe", path);
         }
-        public override void saveBackup()
+        public override void saveBackup(int id)
         {
             string dataPath = Config.myIni.Read("CSV", "path");
             string backupPath = dataPath + @"backups\";
@@ -323,12 +323,15 @@ namespace NetworkMgr
             {   
                 File.Delete(backupPath + oldestBackup + ".zip");
             }
+
             long now = DateTime.Now.Ticks;
             string currentBackupPath = backupPath + now.ToString();
             Directory.CreateDirectory(currentBackupPath);
 
-            DirectoryInfo dirSource = new DirectoryInfo(dataPath);
-            DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath);
+            File.Copy(dataPath + @"\Main.csv", currentBackupPath + @"\Main.csv");
+
+            DirectoryInfo dirSource = new DirectoryInfo(dataPath + @"\" + Config.getIdDirectory(id));
+            DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath + @"\" + Config.getIdDirectory(id));
             string[] ignoreDir = { "backups" };
             copyAll(dirSource, dirTarget, ignoreDir);
                 

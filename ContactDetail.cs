@@ -51,14 +51,13 @@ namespace NetworkMgr
         }
         public void start()
         {
-            label1.Focus();
             loadImage();
             Show();
             ResumeLayout();
         }
         public void save()
         {
-            pointerToStorageManager.storageLocation.saveBackup();
+            pointerToStorageManager.storageLocation.saveBackup(id);
             DataRow newRow = pointerToStorageManager.mainList.NewRow();
             newRow["Name"] = txtName.Text;
             newRow["Surname"] = txtSurname.Text;
@@ -195,12 +194,13 @@ namespace NetworkMgr
             FacebookEditable.Text = "";
             linkedinEditable.Text = "";
             txtSkype.Text = "";
-
+            txtNotes.Text = "";
 
 
             //fillDataGridView();
             toggleEditable();
             start();
+            txtName.Focus();
             
             //loadNotes();
         }
@@ -231,10 +231,11 @@ namespace NetworkMgr
             linkedinEditable.Text = row["Linkedin"].ToString();
             txtSkype.Text = row["Skype"].ToString();
 
-            start();
             fillDataGridView();
             toggleEditable();
             loadNotes();
+            start();
+            toggleEdit.Focus();
         }
         private void loadNotes()
         {
@@ -255,15 +256,25 @@ namespace NetworkMgr
                         text.ReadOnly = true;
                         text.BorderStyle = BorderStyle.None;
                         //HideCaret(text.Handle);
-                        text.TabStop = false;
+                        //text.TabStop = false;
                         
                     }
                 }
                 dateBirthday.ReadOnly = true;
                 txtNotes.ReadOnly = true;
+
                 linkedinEditable.Visible = false;
                 FacebookEditable.Visible = false;
                 companyURLEditable.Visible = false;
+
+                linkedinEditable.TabStop = false;
+                FacebookEditable.TabStop = false;
+                companyURLEditable.TabStop = false;
+
+                linkLinkedin.TabStop = true;
+                linkFacebook.TabStop = true;
+                companyURL.TabStop = true;
+
 
                 saveBtn.Visible = false;
                 toggleEdit.Visible = true;
@@ -279,7 +290,7 @@ namespace NetworkMgr
                         text.ReadOnly = false;
                         text.BackColor = Color.White;
                         text.BorderStyle = BorderStyle.FixedSingle;
-                        text.TabStop = true;
+                        //text.TabStop = true;
                     }
                 }
                 dateBirthday.ReadOnly = false;
@@ -288,8 +299,19 @@ namespace NetworkMgr
                 linkedinEditable.Visible = true;
                 FacebookEditable.Visible = true;
                 companyURLEditable.Visible = true;
+
+                linkedinEditable.TabStop = true;
+                FacebookEditable.TabStop = true;
+                companyURLEditable.TabStop = true;
+
+                linkLinkedin.TabStop = false;
+                linkFacebook.TabStop = false;
+                companyURL.TabStop = false;
+
                 saveBtn.Visible = true;
                 toggleEdit.Visible = false;
+
+
                 isEditable = true;
             }
             
@@ -344,11 +366,6 @@ namespace NetworkMgr
             pointerToStorageManager.storageLocation.save(pointerToStorageManager.mainList);
             pointerToContactList.mergeName();
             
-        }
-        private void txtNotes_TextChanged(object sender, MouseEventArgs e)
-        {
-            //string path = ((CSVManager)pointerToStorageManager.notesStorageLocation).path;
-            //Process.Start(path);
         }
         private void button1_Click(object sender, EventArgs e)
         {
