@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;  
 using CsvHelper;
 using System.Globalization;
+using System.IO.Compression;
 using Word = Microsoft.Office.Interop.Word;
 using Microsoft.Office.Interop.Word;
 
@@ -145,6 +146,8 @@ namespace NetworkMgr
         public abstract void addNewContact(int id);
         //public abstract string loadNotes();
         public abstract void openFileExplorer(int id);
+        public abstract void saveBackup();
+        public abstract void copyAll(DirectoryInfo source, DirectoryInfo target, string[] ignoreDir);
     }
     public class CSVManager : ProductBase
     {
@@ -331,6 +334,58 @@ namespace NetworkMgr
             string path = Config.myIni.Read("CSV", "path");
             path += Config.getIdDirectory(id);
             Process.Start("explorer.exe", path);
+        }
+        public override void saveBackup()
+        {
+            string dataPath = Config.myIni.Read("CSV", "path");
+            string backupPath = dataPath + @"backups\";
+            int length = Directory.GetDirectories(backupPath).Length;
+
+            int backupTimeLimitDays = Convert.ToInt32(Config.myIni.Read("GENERAL", "backupTimeLimitInDays"));
+
+            long backupTimeLimitTick = DateTime.Now.AddDays(-backupTimeLimitDays).Ticks;
+
+            string[] names = Directory.GetDirectories(backupPath).Select(Path.GetFileName).ToArray();
+            string oldestBackup = names.Min();
+            long oldestBackupLong = Convert.ToInt64(oldestBackup);
+            if (oldestBackupLong < backupTimeLimitTick)
+            {   
+                File.Delete(backupPath + oldestBackup + ".zip");
+            }
+            long now = DateTime.Now.Ticks;
+            string currentBackupPath = backupPath + now.ToString();
+            Directory.CreateDirectory(currentBackupPath);
+
+            DirectoryInfo dirSource = new DirectoryInfo(dataPath);
+            DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath);
+            string[] ignoreDir = { "backups" };
+            copyAll(dirSource, dirTarget, ignoreDir);
+                
+
+            //ZipFile.CreateFromDirectory(currentBackupPath,currentBackupPath);
+            //Directory.Delete(currentBackupPath);
+        }
+        public override void copyAll(DirectoryInfo source, DirectoryInfo target, string[] ignoreDir)
+        {
+            Directory.CreateDirectory(target.FullName);
+
+            // Copy each file into the new directory.
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                //Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+            {
+                if (!ignoreDir.Contains(diSourceSubDir.Name))
+                {
+                    DirectoryInfo nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
+                    copyAll(diSourceSubDir, nextTargetSubDir, ignoreDir);
+                }
+                
+            }
         }
     }
 }

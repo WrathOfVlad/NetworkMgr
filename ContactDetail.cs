@@ -59,6 +59,7 @@ namespace NetworkMgr
         }
         public void save()
         {
+            pointerToStorageManager.storageLocation.saveBackup();
             DataRow newRow = pointerToStorageManager.mainList.NewRow();
             newRow["Name"] = txtName.Text;
             newRow["Surname"] = txtSurname.Text;
