@@ -31,6 +31,8 @@ namespace NetworkMgr
             pointerToContactList.setStoragePointer(pointerToStorageManager);
             pointerToContactList.setMainPointer(this);
             pointerToStorageManager.mainList = pointerToStorageManager.storageLocation.load();
+
+            pointerToContactList.initiateContactDetail();
             openContactList();
 
         }
@@ -63,9 +65,9 @@ namespace NetworkMgr
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pointerToContactList.WindowState = FormWindowState.Maximized;
-            pointerToContactList.MdiParent = this;
-            pointerToContactList.Show();
+            //pointerToContactList.WindowState = FormWindowState.Maximized;
+            //pointerToContactList.MdiParent = this;
+            //pointerToContactList.Show();
             pointerToContactList.addNewContact();
         }
         private void saveContactsToolStripMenuItem_Click(object sender, EventArgs e)

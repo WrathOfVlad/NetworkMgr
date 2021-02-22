@@ -16,14 +16,14 @@ namespace NetworkMgr
     {
         private Main pointerToMain = null;
         private StorageManager pointerToStorageManager = null;
-        private ContactDetail pointerToContactDetail = null;
+        private ContactDetail pointerToContactDetail = new ContactDetail();
         public ContactList()
         {
             InitializeComponent();
         }
-        private void initiateContactDetail()
+        public void initiateContactDetail()
         {
-            pointerToContactDetail = new ContactDetail();
+            //pointerToContactDetail =;
             pointerToContactDetail.setMainPointer(pointerToMain);
             pointerToContactDetail.setContactListPointer(this);
             pointerToContactDetail.setStoragePointer(pointerToStorageManager);
@@ -35,6 +35,7 @@ namespace NetworkMgr
         }
         public void addNewContact()
         {
+            //initiateContactDetail();
             pointerToContactDetail.SuspendLayout();
             pointerToContactDetail.newContact();
         }
@@ -48,7 +49,7 @@ namespace NetworkMgr
         }
         private void ContactList_Load(object sender, EventArgs e)
         {
-            initiateContactDetail();
+            //initiateContactDetail();
 
             mainContactList.DataSource = pointerToStorageManager.mainList;
             mergeName();
