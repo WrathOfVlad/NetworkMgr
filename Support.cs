@@ -13,8 +13,6 @@ using System.Drawing;
 using CsvHelper;
 using System.Globalization;
 using System.IO.Compression;
-using Word = Microsoft.Office.Interop.Word;
-using Microsoft.Office.Interop.Word;
 
 namespace NetworkMgr
 {
@@ -96,6 +94,8 @@ namespace NetworkMgr
             }
             return contactLog;
         }
+        
+        /*
         public void getNotes(int id)
         {
             string storageType = Config.myIni.Read("GENERAL", "storageType");
@@ -111,7 +111,7 @@ namespace NetworkMgr
                 notesLocator.path = path + dirName + @"\notes.docx";
             }
         }
-
+        */
 
     }
     public class ContactLogManager
@@ -144,9 +144,10 @@ namespace NetworkMgr
         public abstract Image getImage(int id);
         public abstract void saveImage(int id, Image image);
         public abstract void addNewContact(int id);
-        //public abstract string loadNotes();
+        public abstract string loadNotes(int id);
+        public abstract void saveNotes(int id, string content);
         public abstract void openFileExplorer(int id);
-        public abstract void saveBackup();
+        public abstract void saveBackup(int id);
         public abstract void copyAll(DirectoryInfo source, DirectoryInfo target, string[] ignoreDir);
     }
     public class CSVManager : ProductBase
@@ -182,66 +183,36 @@ namespace NetworkMgr
                 }
             }
         }
-        /*
-        public override string loadNotes()
+        public override string loadNotes(int id)
         {
-            using(MemoryStream ms = new MemoryStream())
+            string path = Config.myIni.Read("CSV", "path");
+            path += Config.getIdDirectory(id);
+            string notesPath = path + @"\notes.txt";
+
+            string notesContent = "";
+            if (File.Exists(notesPath))
             {
-                object readOnly = false;
-                object visibility = true;
-                object fileName = path;
-                object newTemplate = false;
-                object docType = 0;
-                object missing = Type.Missing;
-                string notes;
-                if (File.Exists(path))
-                {
-                    Document document;
-                    _Application application = new Word.Application() { Visible = false };
-                    document = application.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref visibility, ref missing, ref missing, ref missing, ref missing);
-
-                    
-                    document.Save(ms, FormatType.Rtf);
-
-                    return ms.ToString();
-                    /*
-                    document.ActiveWindow.Selection.WholeStory();
-                    document.ActiveWindow.Selection.Copy();
-                    IDataObject dataObject = Clipboard.GetDataObject();
-                    notes = dataObject.GetData(DataFormats.Rtf).ToString();
-                    application.Quit(ref missing, ref missing, ref missing);
-                    
-                }
-                else
-                {
-                    Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-
-                    //Set animation status for word application  
-                    winword.ShowAnimation = false;
-
-                    //Set status for word application is to be visible or not.  
-                    winword.Visible = false;
-
-                    //Create a new document  
-                    Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-                    document.ActiveWindow.Selection.WholeStory();
-                    document.ActiveWindow.Selection.Copy();
-                    IDataObject dataObject = Clipboard.GetDataObject();
-                    notes = dataObject.GetData(DataFormats.Rtf).ToString();
-                    document.SaveAs2(ref fileName);
-                    document.Close(ref missing, ref missing, ref missing);
-                    document = null;
-                    //winword.Quit(ref missing, ref missing, ref missing);
-
-                }
-                return (ms.ToString());
+                notesContent = File.ReadAllText(notesPath);
             }
-
+            else
+            {
+                File.Create(notesPath).Close();
+            }
             
-            //return notes;
-
+            return notesContent;
         }
-        */
+        public override void saveNotes(int id, string content)
+        {
+            string path = Config.myIni.Read("CSV", "path");
+            path += Config.getIdDirectory(id);
+            string notesPath = path + @"\notes.txt";
+            if (File.Exists(notesPath))
+            {
+                File.Delete(notesPath);
+            }
+            File.Create(notesPath).Close();
+            File.WriteAllText(notesPath, content);
+        }
         public override void save(System.Data.DataTable table)
         {
             if (table.Columns["Full Name"] != null)
@@ -335,7 +306,7 @@ namespace NetworkMgr
             path += Config.getIdDirectory(id);
             Process.Start("explorer.exe", path);
         }
-        public override void saveBackup()
+        public override void saveBackup(int id)
         {
             string dataPath = Config.myIni.Read("CSV", "path");
             string backupPath = dataPath + @"backups\";
@@ -352,12 +323,15 @@ namespace NetworkMgr
             {   
                 File.Delete(backupPath + oldestBackup + ".zip");
             }
+
             long now = DateTime.Now.Ticks;
             string currentBackupPath = backupPath + now.ToString();
             Directory.CreateDirectory(currentBackupPath);
 
-            DirectoryInfo dirSource = new DirectoryInfo(dataPath);
-            DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath);
+            File.Copy(dataPath + @"\Main.csv", currentBackupPath + @"\Main.csv");
+
+            DirectoryInfo dirSource = new DirectoryInfo(dataPath + @"\" + Config.getIdDirectory(id));
+            DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath + @"\" + Config.getIdDirectory(id));
             string[] ignoreDir = { "backups" };
             copyAll(dirSource, dirTarget, ignoreDir);
                 

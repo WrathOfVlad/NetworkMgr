@@ -26,7 +26,6 @@ namespace NetworkMgr
             this.Update();
             InitializeComponent();
         }
-
         public void setMainPointer(Main pointerToMain)
         {
             this.pointerToMain = pointerToMain;
@@ -39,7 +38,6 @@ namespace NetworkMgr
         {
             this.pointerToContactDetail = contactDetail;
         }
-
         public void saveButton(object sender, EventArgs e)
         {
             save();
@@ -58,7 +56,6 @@ namespace NetworkMgr
             pointerToStorageManager.contactLogStorageLocation.save(contactLogManager);
             exit();
         }
-
         private void exit()
         {
             pointerToContactDetail.WindowState = FormWindowState.Maximized;
@@ -68,7 +65,6 @@ namespace NetworkMgr
             pointerToMain.setContactLogPointer(null);
             //pointerToMain.pointerToContactLog = null;
         }
-
         private void exitBtn_Click(object sender, EventArgs e)
         {
             exit();

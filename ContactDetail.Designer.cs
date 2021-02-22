@@ -105,7 +105,7 @@ namespace NetworkMgr
             this.label1.Location = new System.Drawing.Point(410, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 20);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Name:";
             // 
             // label2
@@ -115,7 +115,7 @@ namespace NetworkMgr
             this.label2.Location = new System.Drawing.Point(410, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 20);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Surname:";
             // 
             // label3
@@ -136,7 +136,7 @@ namespace NetworkMgr
             this.txtName.Location = new System.Drawing.Point(510, 70);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(173, 27);
-            this.txtName.TabIndex = 4;
+            this.txtName.TabIndex = 1;
             // 
             // txtSurname
             // 
@@ -145,7 +145,7 @@ namespace NetworkMgr
             this.txtSurname.Location = new System.Drawing.Point(510, 100);
             this.txtSurname.Name = "txtSurname";
             this.txtSurname.Size = new System.Drawing.Size(173, 27);
-            this.txtSurname.TabIndex = 5;
+            this.txtSurname.TabIndex = 2;
             // 
             // txtEmail1
             // 
@@ -154,7 +154,7 @@ namespace NetworkMgr
             this.txtEmail1.Location = new System.Drawing.Point(510, 130);
             this.txtEmail1.Name = "txtEmail1";
             this.txtEmail1.Size = new System.Drawing.Size(173, 27);
-            this.txtEmail1.TabIndex = 6;
+            this.txtEmail1.TabIndex = 3;
             // 
             // txtEmail2
             // 
@@ -163,7 +163,7 @@ namespace NetworkMgr
             this.txtEmail2.Location = new System.Drawing.Point(510, 160);
             this.txtEmail2.Name = "txtEmail2";
             this.txtEmail2.Size = new System.Drawing.Size(173, 27);
-            this.txtEmail2.TabIndex = 9;
+            this.txtEmail2.TabIndex = 4;
             // 
             // label4
             // 
@@ -182,7 +182,7 @@ namespace NetworkMgr
             this.txtEmail3.Location = new System.Drawing.Point(510, 190);
             this.txtEmail3.Name = "txtEmail3";
             this.txtEmail3.Size = new System.Drawing.Size(173, 27);
-            this.txtEmail3.TabIndex = 11;
+            this.txtEmail3.TabIndex = 5;
             // 
             // label5
             // 
@@ -202,7 +202,7 @@ namespace NetworkMgr
             this.txtPhone1.Location = new System.Drawing.Point(815, 70);
             this.txtPhone1.Name = "txtPhone1";
             this.txtPhone1.Size = new System.Drawing.Size(173, 27);
-            this.txtPhone1.TabIndex = 13;
+            this.txtPhone1.TabIndex = 14;
             // 
             // label6
             // 
@@ -243,7 +243,7 @@ namespace NetworkMgr
             this.txtAddress.Location = new System.Drawing.Point(510, 280);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(173, 27);
-            this.txtAddress.TabIndex = 21;
+            this.txtAddress.TabIndex = 8;
             // 
             // label10
             // 
@@ -262,7 +262,7 @@ namespace NetworkMgr
             this.companyURLEditable.Location = new System.Drawing.Point(125, 250);
             this.companyURLEditable.Name = "companyURLEditable";
             this.companyURLEditable.Size = new System.Drawing.Size(284, 27);
-            this.companyURLEditable.TabIndex = 41;
+            this.companyURLEditable.TabIndex = 12;
             // 
             // label11
             // 
@@ -315,6 +315,7 @@ namespace NetworkMgr
             this.txtStatusContact.Name = "txtStatusContact";
             this.txtStatusContact.Size = new System.Drawing.Size(173, 20);
             this.txtStatusContact.TabIndex = 33;
+            this.txtStatusContact.TabStop = false;
             // 
             // label15
             // 
@@ -334,7 +335,7 @@ namespace NetworkMgr
             this.txtLocation.Location = new System.Drawing.Point(510, 250);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(173, 27);
-            this.txtLocation.TabIndex = 31;
+            this.txtLocation.TabIndex = 7;
             // 
             // label16
             // 
@@ -354,7 +355,7 @@ namespace NetworkMgr
             this.txtRole.Location = new System.Drawing.Point(815, 160);
             this.txtRole.Name = "txtRole";
             this.txtRole.Size = new System.Drawing.Size(173, 27);
-            this.txtRole.TabIndex = 29;
+            this.txtRole.TabIndex = 16;
             // 
             // label17
             // 
@@ -374,7 +375,7 @@ namespace NetworkMgr
             this.txtCompany.Location = new System.Drawing.Point(510, 220);
             this.txtCompany.Name = "txtCompany";
             this.txtCompany.Size = new System.Drawing.Size(173, 27);
-            this.txtCompany.TabIndex = 27;
+            this.txtCompany.TabIndex = 6;
             // 
             // label18
             // 
@@ -422,7 +423,7 @@ namespace NetworkMgr
             this.linkFacebook.Location = new System.Drawing.Point(125, 220);
             this.linkFacebook.Name = "linkFacebook";
             this.linkFacebook.Size = new System.Drawing.Size(72, 20);
-            this.linkFacebook.TabIndex = 45;
+            this.linkFacebook.TabIndex = 11;
             this.linkFacebook.TabStop = true;
             this.linkFacebook.Text = "Facebook";
             this.linkFacebook.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFacebook_LinkClicked);
@@ -433,7 +434,7 @@ namespace NetworkMgr
             this.linkLinkedin.Location = new System.Drawing.Point(125, 190);
             this.linkLinkedin.Name = "linkLinkedin";
             this.linkLinkedin.Size = new System.Drawing.Size(64, 20);
-            this.linkLinkedin.TabIndex = 46;
+            this.linkLinkedin.TabIndex = 10;
             this.linkLinkedin.TabStop = true;
             this.linkLinkedin.Text = "Linkedin";
             this.linkLinkedin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLinkedin_LinkClicked);
@@ -444,9 +445,8 @@ namespace NetworkMgr
             this.txtNotes.Location = new System.Drawing.Point(1050, 70);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(850, 870);
-            this.txtNotes.TabIndex = 47;
+            this.txtNotes.TabIndex = 17;
             this.txtNotes.Text = "";
-            this.txtNotes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtNotes_TextChanged);
             // 
             // contactLogDataGridView
             // 
@@ -461,13 +461,14 @@ namespace NetworkMgr
             this.contactLogDataGridView.RowTemplate.Height = 24;
             this.contactLogDataGridView.Size = new System.Drawing.Size(1030, 500);
             this.contactLogDataGridView.TabIndex = 48;
+            this.contactLogDataGridView.TabStop = false;
             // 
             // toggleEdit
             // 
             this.toggleEdit.Location = new System.Drawing.Point(170, 10);
             this.toggleEdit.Name = "toggleEdit";
             this.toggleEdit.Size = new System.Drawing.Size(75, 30);
-            this.toggleEdit.TabIndex = 49;
+            this.toggleEdit.TabIndex = 19;
             this.toggleEdit.Text = "Edit";
             this.toggleEdit.UseVisualStyleBackColor = true;
             this.toggleEdit.Click += new System.EventHandler(this.toggleEdit_Click);
@@ -477,21 +478,22 @@ namespace NetworkMgr
             this.linkedinEditable.Location = new System.Drawing.Point(125, 190);
             this.linkedinEditable.Name = "linkedinEditable";
             this.linkedinEditable.Size = new System.Drawing.Size(284, 27);
-            this.linkedinEditable.TabIndex = 50;
+            this.linkedinEditable.TabIndex = 10;
             // 
             // FacebookEditable
             // 
             this.FacebookEditable.Location = new System.Drawing.Point(125, 220);
             this.FacebookEditable.Name = "FacebookEditable";
             this.FacebookEditable.Size = new System.Drawing.Size(284, 27);
-            this.FacebookEditable.TabIndex = 51;
+            this.FacebookEditable.TabIndex = 11;
             // 
             // addNew
             // 
             this.addNew.Location = new System.Drawing.Point(23, 387);
             this.addNew.Name = "addNew";
             this.addNew.Size = new System.Drawing.Size(75, 30);
-            this.addNew.TabIndex = 52;
+            this.addNew.TabIndex = 21;
+            this.addNew.TabStop = false;
             this.addNew.Text = "Add New";
             this.addNew.UseVisualStyleBackColor = true;
             this.addNew.Click += new System.EventHandler(this.addNew_Click);
@@ -501,7 +503,7 @@ namespace NetworkMgr
             this.saveBtn.Location = new System.Drawing.Point(270, 10);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 30);
-            this.saveBtn.TabIndex = 53;
+            this.saveBtn.TabIndex = 20;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.save_Click);
@@ -511,7 +513,7 @@ namespace NetworkMgr
             this.button1.Location = new System.Drawing.Point(370, 10);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 30);
-            this.button1.TabIndex = 54;
+            this.button1.TabIndex = 18;
             this.button1.Text = "File Explorer";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -524,6 +526,7 @@ namespace NetworkMgr
             this.dateLastContact.ReadOnly = true;
             this.dateLastContact.Size = new System.Drawing.Size(100, 27);
             this.dateLastContact.TabIndex = 55;
+            this.dateLastContact.TabStop = false;
             this.dateLastContact.ValidatingType = typeof(System.DateTime);
             // 
             // dateNextContact
@@ -534,6 +537,7 @@ namespace NetworkMgr
             this.dateNextContact.ReadOnly = true;
             this.dateNextContact.Size = new System.Drawing.Size(100, 27);
             this.dateNextContact.TabIndex = 56;
+            this.dateNextContact.TabStop = false;
             this.dateNextContact.ValidatingType = typeof(System.DateTime);
             // 
             // companyURL
@@ -542,18 +546,18 @@ namespace NetworkMgr
             this.companyURL.Location = new System.Drawing.Point(125, 250);
             this.companyURL.Name = "companyURL";
             this.companyURL.Size = new System.Drawing.Size(102, 20);
-            this.companyURL.TabIndex = 57;
+            this.companyURL.TabIndex = 12;
             this.companyURL.TabStop = true;
             this.companyURL.Text = "Company URL";
             this.companyURL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.companyURL_LinkClicked);
             // 
             // dateBirthday
             // 
-            this.dateBirthday.Location = new System.Drawing.Point(125, 157);
+            this.dateBirthday.Location = new System.Drawing.Point(125, 160);
             this.dateBirthday.Mask = "00/00/0000";
             this.dateBirthday.Name = "dateBirthday";
             this.dateBirthday.Size = new System.Drawing.Size(100, 27);
-            this.dateBirthday.TabIndex = 58;
+            this.dateBirthday.TabIndex = 9;
             this.dateBirthday.ValidatingType = typeof(System.DateTime);
             // 
             // txtSkype
@@ -563,7 +567,7 @@ namespace NetworkMgr
             this.txtSkype.Location = new System.Drawing.Point(125, 280);
             this.txtSkype.Name = "txtSkype";
             this.txtSkype.Size = new System.Drawing.Size(284, 27);
-            this.txtSkype.TabIndex = 60;
+            this.txtSkype.TabIndex = 13;
             // 
             // label9
             // 

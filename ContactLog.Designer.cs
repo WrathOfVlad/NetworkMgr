@@ -104,7 +104,7 @@
             this.txtType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(100, 27);
-            this.txtType.TabIndex = 7;
+            this.txtType.TabIndex = 2;
             // 
             // txtActions
             // 
@@ -112,7 +112,7 @@
             this.txtActions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtActions.Name = "txtActions";
             this.txtActions.Size = new System.Drawing.Size(100, 27);
-            this.txtActions.TabIndex = 9;
+            this.txtActions.TabIndex = 4;
             // 
             // txtStatus
             // 
@@ -120,7 +120,7 @@
             this.txtStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(100, 27);
-            this.txtStatus.TabIndex = 10;
+            this.txtStatus.TabIndex = 5;
             // 
             // txtNotes
             // 
@@ -128,7 +128,7 @@
             this.txtNotes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(285, 309);
-            this.txtNotes.TabIndex = 11;
+            this.txtNotes.TabIndex = 6;
             this.txtNotes.Text = "";
             // 
             // saveBtn
@@ -139,7 +139,7 @@
             this.saveBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(67, 31);
-            this.saveBtn.TabIndex = 12;
+            this.saveBtn.TabIndex = 7;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveButton);
@@ -152,7 +152,7 @@
             this.exitBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(75, 29);
-            this.exitBtn.TabIndex = 13;
+            this.exitBtn.TabIndex = 8;
             this.exitBtn.Text = "Exit";
             this.exitBtn.UseVisualStyleBackColor = true;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
@@ -164,7 +164,7 @@
             this.dateDate.Mask = "00/00/0000";
             this.dateDate.Name = "dateDate";
             this.dateDate.Size = new System.Drawing.Size(100, 27);
-            this.dateDate.TabIndex = 56;
+            this.dateDate.TabIndex = 1;
             this.dateDate.ValidatingType = typeof(System.DateTime);
             // 
             // dateNextTime
@@ -174,7 +174,7 @@
             this.dateNextTime.Mask = "00/00/0000";
             this.dateNextTime.Name = "dateNextTime";
             this.dateNextTime.Size = new System.Drawing.Size(100, 27);
-            this.dateNextTime.TabIndex = 57;
+            this.dateNextTime.TabIndex = 3;
             this.dateNextTime.ValidatingType = typeof(System.DateTime);
             // 
             // ContactLog
