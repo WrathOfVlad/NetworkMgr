@@ -33,7 +33,6 @@ namespace NetworkMgr
             pointerToStorageManager.mainList = pointerToStorageManager.storageLocation.load();
 
             pointerToContactList.initiateContactDetail();
-            openContactList();
 
         }
         public void setContactDetailPointer(ContactDetail contactDetail)
@@ -77,14 +76,14 @@ namespace NetworkMgr
         private void checkIfTodayNeedsANotification(string dateColumnName, string notificationMessage, string toastNotificationHeader)
         {
             DateTime date = DateTime.Today;
-            string today = date.ToString("yyyy/MM/dd");
+            string today = date.ToString("yyyy-MM-dd");
 
-            string expression = String.Format("'{0}' = '{1}'", dateColumnName,today);
+            string expression = String.Format("[{0}]='{1}'", dateColumnName,today);
             DataRow[] rows = pointerToStorageManager.mainList.Select(expression);
 
             foreach (DataRow row in rows)
             {
-                string formattedNotification = String.Format(notificationMessage, row["Full Name"]);
+                string formattedNotification = String.Format(notificationMessage, row["Name"] + " " + row["Surname"]);
                 sendNotification(toastNotificationHeader, formattedNotification);
             }
 
@@ -122,7 +121,8 @@ namespace NetworkMgr
         private void Main_Load(object sender, EventArgs e)
         {
             checkIfTodayNeedsANotification("Birthday", "It's {0}'s birthday!","Birthday Notification");
-            checkIfTodayNeedsANotification("Next Time", "You scheduled a meeting with {0} today.", "Meeting Notification");
+            checkIfTodayNeedsANotification("Next Contact", "You scheduled a meeting with {0} today.", "Meeting Notification");
+            openContactList();
         }
     }
 }

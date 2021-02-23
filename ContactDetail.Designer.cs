@@ -32,6 +32,7 @@ namespace NetworkMgr
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.profilePic = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -196,7 +197,6 @@ namespace NetworkMgr
             // 
             // txtPhone1
             // 
-            this.txtPhone1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPhone1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtPhone1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtPhone1.Location = new System.Drawing.Point(815, 70);
@@ -206,7 +206,6 @@ namespace NetworkMgr
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label6.Location = new System.Drawing.Point(710, 70);
@@ -217,7 +216,6 @@ namespace NetworkMgr
             // 
             // txtPhone2
             // 
-            this.txtPhone2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPhone2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtPhone2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtPhone2.Location = new System.Drawing.Point(815, 100);
@@ -227,7 +225,6 @@ namespace NetworkMgr
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label7.Location = new System.Drawing.Point(710, 100);
@@ -276,7 +273,6 @@ namespace NetworkMgr
             // 
             // label12
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(1000, 70);
             this.label12.Name = "label12";
@@ -306,7 +302,6 @@ namespace NetworkMgr
             // 
             // txtStatusContact
             // 
-            this.txtStatusContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStatusContact.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtStatusContact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtStatusContact.BackColor = System.Drawing.SystemColors.Control;
@@ -319,7 +314,6 @@ namespace NetworkMgr
             // 
             // label15
             // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
             this.label15.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label15.Location = new System.Drawing.Point(710, 390);
@@ -349,7 +343,6 @@ namespace NetworkMgr
             // 
             // txtRole
             // 
-            this.txtRole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRole.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtRole.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRole.Location = new System.Drawing.Point(815, 160);
@@ -359,7 +352,6 @@ namespace NetworkMgr
             // 
             // label17
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label17.Location = new System.Drawing.Point(710, 160);
@@ -441,7 +433,6 @@ namespace NetworkMgr
             // 
             // txtNotes
             // 
-            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNotes.Location = new System.Drawing.Point(1050, 70);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(850, 870);
@@ -453,8 +444,18 @@ namespace NetworkMgr
             this.contactLogDataGridView.AllowUserToAddRows = false;
             this.contactLogDataGridView.AllowUserToDeleteRows = false;
             this.contactLogDataGridView.AllowUserToOrderColumns = true;
+            this.contactLogDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contactLogDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.contactLogDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.contactLogDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.contactLogDataGridView.EnableHeadersVisualStyles = false;
             this.contactLogDataGridView.Location = new System.Drawing.Point(12, 441);
             this.contactLogDataGridView.Name = "contactLogDataGridView";
             this.contactLogDataGridView.RowHeadersWidth = 51;

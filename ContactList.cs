@@ -84,7 +84,6 @@ namespace NetworkMgr
 
             mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
-            mainContactList.Columns["Full Name"].DisplayIndex = 0;
             mainContactList.Sort(mainContactList.Columns["Full Name"], ListSortDirection.Ascending);
             mainContactList.Columns["Full Name"].SortMode = DataGridViewColumnSortMode.Automatic;
 
@@ -115,6 +114,16 @@ namespace NetworkMgr
             pointerToStorageManager.mainList.Columns.Add("Full Name", typeof(string), "Name+' '+Surname");
             mainContactList.Columns["Name"].Visible = false;
             mainContactList.Columns["Surname"].Visible = false;
+
+            if (mainContactList.Columns["Id"].Visible)
+            {
+                mainContactList.Columns["Full Name"].DisplayIndex = 1;
+            }
+            else
+            {
+                mainContactList.Columns["Full Name"].DisplayIndex = 0;
+            }
+            
         }
         private void search_TextChanged(object sender, EventArgs e)
         {

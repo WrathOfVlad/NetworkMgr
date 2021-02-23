@@ -122,6 +122,9 @@ namespace NetworkMgr
             }
 
             pointerToStorageManager.storageLocation.saveNotes(id, txtNotes.Text);
+
+            pointerToStorageManager.storageLocation.save(pointerToStorageManager.mainList);
+            pointerToContactList.mergeName();
             //toggleEditable();
         }
         public void loadImage()
@@ -361,10 +364,7 @@ namespace NetworkMgr
         private void save_Click(object sender, EventArgs e)
         {
             save();
-            toggleEditable();
-            pointerToStorageManager.storageLocation.save(pointerToStorageManager.mainList);
-            pointerToContactList.mergeName();
-            
+            toggleEditable();            
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -385,9 +385,8 @@ namespace NetworkMgr
                 dateLastContact.Text = lastDate.ToString();
                 dateNextContact.Text = row["Next Time"].ToString();
                 txtStatusContact.Text = row["Status"].ToString();
-                save();
-
             }
+            save();
         }
         
     }
