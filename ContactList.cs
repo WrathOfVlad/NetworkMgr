@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using System.Timers;
 
 namespace NetworkMgr
 {
@@ -17,6 +18,9 @@ namespace NetworkMgr
         private Main pointerToMain = null;
         private StorageManager pointerToStorageManager = null;
         private ContactDetail pointerToContactDetail = new ContactDetail();
+        private string[] shownColumns;
+        private int textChangedDelay = 5000;
+        //private System.Timers.Timer timer;
         public ContactList()
         {
             InitializeComponent();
@@ -51,6 +55,8 @@ namespace NetworkMgr
         {
             //initiateContactDetail();
 
+            //mainContactList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+
             mainContactList.DataSource = pointerToStorageManager.mainList;
             mergeName();
             mainContactList.Columns["Full Name"].DisplayIndex = 0;
@@ -71,8 +77,15 @@ namespace NetworkMgr
                 }
                 
             }
-           
-            
+
+            hiddenColumns.Append("Full Name");
+            string[] allColumns = new string[mainContactList.ColumnCount];
+            for (int i = 0; i < mainContactList.ColumnCount; i++)
+            {
+                allColumns[i] = mainContactList.Columns[i].HeaderText.ToString();
+            }
+            shownColumns = allColumns.Except(hiddenColumns).ToArray();
+
         }
         private void mainContactList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -98,36 +111,41 @@ namespace NetworkMgr
         }
         private void search_TextChanged(object sender, EventArgs e)
         {
-            
-            string columnsToParse = Config.myIni.Read("GENERAL", "hiddenColumns");
-            string[] hiddenColumns = columnsToParse.Split(',');
-            hiddenColumns.Append("Full Name");
-            string[] allColumns = new string[mainContactList.ColumnCount];
-            for (int i = 0; i < mainContactList.ColumnCount; i++)
-            {
-                allColumns[i] = mainContactList.Columns[i].HeaderText.ToString() ;
-            }
-            string[] shownColumns = allColumns.Except(hiddenColumns).ToArray();
+            searchInList();
 
+            
+
+            //searchInList();
+
+        }
+
+        private void searchInList()
+        {
             //string[] shownColumns = mainContactList.Rows[-1];
             CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[mainContactList.DataSource];
             currencyManager1.SuspendBinding();
 
-            for (int i = 0; i < mainContactList.Rows.Count; i++)
+            string searchFilter = search.Text.ToLower().Trim();
+            int count = mainContactList.Rows.Count;
+            for (int i = 0; i < count; i++)
             {
-                mainContactList.Rows[i].Visible = false;
-                foreach(string x in shownColumns)
+                DataGridViewRow row = mainContactList.Rows[i];
+                string rowContent = "";
+                foreach (string x in shownColumns)
                 {
-                    DataGridViewRow row = mainContactList.Rows[i];
-                    row.Cells[x].Value.ToString();
-                    if (row.Cells[x].Value.ToString().ToLower().Contains(search.Text.ToLower()))
-                    {
-                        mainContactList.Rows[i].Visible = true;
-                    }
+                    rowContent += row.Cells[x].Value;
+                }
+
+                if (rowContent.ToLower().Contains(searchFilter))
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    row.Visible = false;
                 }
             }
             currencyManager1.ResumeBinding();
-
         }
     }
 }
