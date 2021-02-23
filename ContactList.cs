@@ -19,8 +19,6 @@ namespace NetworkMgr
         private StorageManager pointerToStorageManager = null;
         private ContactDetail pointerToContactDetail = new ContactDetail();
         private string[] shownColumns;
-        private int textChangedDelay = 5000;
-        //private System.Timers.Timer timer;
         public ContactList()
         {
             InitializeComponent();
@@ -51,21 +49,8 @@ namespace NetworkMgr
         {
             this.pointerToStorageManager = pointerToStorageManager;
         }
-        private void ContactList_Load(object sender, EventArgs e)
+        private void getHiddenAndShownColumns()
         {
-            //initiateContactDetail();
-
-            //mainContactList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-
-            mainContactList.DataSource = pointerToStorageManager.mainList;
-            mergeName();
-            mainContactList.Columns["Full Name"].DisplayIndex = 0;
-
-            mainContactList.Sort(mainContactList.Columns["Full Name"], ListSortDirection.Ascending);
-
-            mainContactList.Columns["Full Name"].SortMode = DataGridViewColumnSortMode.Automatic;
-
-            mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             string columnsToParse = Config.myIni.Read("GENERAL", "hiddenColumns");
             string[] hiddenColumns = columnsToParse.Split(',');
 
@@ -75,7 +60,7 @@ namespace NetworkMgr
                 {
                     mainContactList.Columns[column].Visible = false;
                 }
-                
+
             }
 
             hiddenColumns.Append("Full Name");
@@ -85,6 +70,29 @@ namespace NetworkMgr
                 allColumns[i] = mainContactList.Columns[i].HeaderText.ToString();
             }
             shownColumns = allColumns.Except(hiddenColumns).ToArray();
+        }
+        private void ContactList_Load(object sender, EventArgs e)
+        {
+            initialDataGridViewSetup();
+            getHiddenAndShownColumns();
+
+        }
+        private void initialDataGridViewSetup()
+        {
+            mainContactList.DataSource = pointerToStorageManager.mainList;
+            mergeName();
+
+            mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            mainContactList.Columns["Full Name"].DisplayIndex = 0;
+            mainContactList.Sort(mainContactList.Columns["Full Name"], ListSortDirection.Ascending);
+            mainContactList.Columns["Full Name"].SortMode = DataGridViewColumnSortMode.Automatic;
+
+            if (mainContactList.Columns["Id"].Visible)
+            {
+                mainContactList.Columns["Id"].DisplayIndex = 0;
+            }
+            mainContactList.DoubleBuffered(true);
 
         }
         private void mainContactList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -107,16 +115,10 @@ namespace NetworkMgr
             pointerToStorageManager.mainList.Columns.Add("Full Name", typeof(string), "Name+' '+Surname");
             mainContactList.Columns["Name"].Visible = false;
             mainContactList.Columns["Surname"].Visible = false;
-            mainContactList.Columns["Full Name"].DisplayIndex = 0;
         }
         private void search_TextChanged(object sender, EventArgs e)
         {
             searchInList();
-
-            
-
-            //searchInList();
-
         }
 
         private void searchInList()
@@ -124,6 +126,8 @@ namespace NetworkMgr
             //string[] shownColumns = mainContactList.Rows[-1];
             CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[mainContactList.DataSource];
             currencyManager1.SuspendBinding();
+
+            mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
             string searchFilter = search.Text.ToLower().Trim();
             int count = mainContactList.Rows.Count;
@@ -146,6 +150,7 @@ namespace NetworkMgr
                 }
             }
             currencyManager1.ResumeBinding();
+            mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
     }
 }

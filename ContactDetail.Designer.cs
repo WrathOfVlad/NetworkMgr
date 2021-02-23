@@ -521,7 +521,7 @@ namespace NetworkMgr
             // dateLastContact
             // 
             this.dateLastContact.Location = new System.Drawing.Point(510, 360);
-            this.dateLastContact.Mask = "00/00/0000";
+            this.dateLastContact.Mask = "0000-00-00";
             this.dateLastContact.Name = "dateLastContact";
             this.dateLastContact.ReadOnly = true;
             this.dateLastContact.Size = new System.Drawing.Size(100, 27);
@@ -532,7 +532,7 @@ namespace NetworkMgr
             // dateNextContact
             // 
             this.dateNextContact.Location = new System.Drawing.Point(510, 390);
-            this.dateNextContact.Mask = "00/00/0000";
+            this.dateNextContact.Mask = "0000-00-00";
             this.dateNextContact.Name = "dateNextContact";
             this.dateNextContact.ReadOnly = true;
             this.dateNextContact.Size = new System.Drawing.Size(100, 27);
@@ -554,7 +554,7 @@ namespace NetworkMgr
             // dateBirthday
             // 
             this.dateBirthday.Location = new System.Drawing.Point(125, 160);
-            this.dateBirthday.Mask = "00/00/0000";
+            this.dateBirthday.Mask = "0000-00-00";
             this.dateBirthday.Name = "dateBirthday";
             this.dateBirthday.Size = new System.Drawing.Size(100, 27);
             this.dateBirthday.TabIndex = 9;

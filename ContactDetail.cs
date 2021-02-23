@@ -28,7 +28,7 @@ namespace NetworkMgr
 
 
         private int id = 0;
-        private System.Data.DataTable contactLogDataTable = new System.Data.DataTable();
+        private DataTable contactLogDataTable = new System.Data.DataTable();
         public ContactDetail()
         {
             //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -66,14 +66,14 @@ namespace NetworkMgr
             newRow["Email 3"] = txtEmail3.Text;
             newRow["Phone 1"] = txtPhone1.Text;
             newRow["Phone 2"] = txtPhone2.Text;
-            newRow["Birthday"] = changeDateFormatting("yyyy/MM/dd", dateBirthday.Text.ToString());
+            newRow["Birthday"] = dateBirthday.Text.ToString();
             newRow["Address"] = txtAddress.Text;
             newRow["Company"] = txtCompany.Text;
             newRow["Role"] = txtRole.Text;
             newRow["Location"] = txtLocation.Text;
             newRow["Contact Status"] = txtStatusContact.Text;
-            newRow["Last Contact"] = changeDateFormatting("yyyy/MM/dd", dateLastContact.Text.ToString());
-            newRow["Next Contact"] = changeDateFormatting("yyyy/MM/dd", dateNextContact.Text.ToString());
+            newRow["Last Contact"] = dateLastContact.Text.ToString();
+            newRow["Next Contact"] = dateNextContact.Text.ToString();
             newRow["Company URL"] = companyURLEditable.Text;
             newRow["Linkedin"] = linkedinEditable.Text;
             newRow["Facebook"] = FacebookEditable.Text;
@@ -88,16 +88,16 @@ namespace NetworkMgr
                     int currentId = Int32.Parse(dr["Id"].ToString());
                     maxId = Math.Max(currentId, maxId);
                 }
-                this.id = maxId + 1;
+                id = maxId + 1;
 
                 //int maxId =Int32.Parse(pointerToStorageManager.mainList.Select("Id = MAX(Id)")["id"]);
-                newRow["Id"] = id;
+                newRow["Id"] = Config.getIdDirectory(id);
                 pointerToStorageManager.mainList.Rows.Add(newRow);
                 pointerToStorageManager.storageLocation.addNewContact(id);
             }
             else
             {
-                newRow["Id"] = id;
+                newRow["Id"] = Config.getIdDirectory(id);
                 //string getIdRow = String.Format("Id = '{0}'", id.ToString());
                 DataRow rowOfChosenId = pointerToStorageManager.mainList.Select("Convert(Id, 'System.Int32') =" + id)[0];
                 int indexOfChosenId = pointerToStorageManager.mainList.Rows.IndexOf(rowOfChosenId);
@@ -207,7 +207,6 @@ namespace NetworkMgr
         public void loadDetail(int id)
         {
             isEditable = true;
-            System.Data.DataTable newTable = pointerToStorageManager.mainList;
             DataRow[] rows = pointerToStorageManager.mainList.Select("Convert(Id, 'System.Int32') =" + id);
             DataRow row = rows[0];
             this.id = int.Parse(row["Id"].ToString());
@@ -218,14 +217,14 @@ namespace NetworkMgr
             txtEmail3.Text = row["Email 3"].ToString();
             txtPhone1.Text = row["Phone 1"].ToString();
             txtPhone2.Text = row["Phone 2"].ToString();
-            dateBirthday.Text = changeDateFormatting("dd/MM/yyyy", row["Birthday"].ToString());
+            dateBirthday.Text = row["Birthday"].ToString();
             txtAddress.Text = row["Address"].ToString();
             txtCompany.Text = row["Company"].ToString();
             txtRole.Text = row["Role"].ToString();
             txtLocation.Text = row["Location"].ToString();
             txtStatusContact.Text = row["Contact Status"].ToString();
-            dateLastContact.Text = changeDateFormatting("dd/MM/yyyy", row["Last Contact"].ToString());
-            dateNextContact.Text = changeDateFormatting("dd/MM/yyyy", row["Next Contact"].ToString());
+            dateLastContact.Text = row["Last Contact"].ToString();
+            dateNextContact.Text = row["Next Contact"].ToString();
             companyURLEditable.Text = row["Company URL"].ToString();
             FacebookEditable.Text = row["Facebook"].ToString();
             linkedinEditable.Text = row["Linkedin"].ToString();
@@ -383,33 +382,14 @@ namespace NetworkMgr
             {
                 DataRow row = rows[0];
 
-                dateLastContact.Text = changeDateFormatting("dd/MM/yyyy", lastDate.ToString());
-                dateNextContact.Text = changeDateFormatting("dd/MM/yyyy", row["Next Time"].ToString());
+                dateLastContact.Text = lastDate.ToString();
+                dateNextContact.Text = row["Next Time"].ToString();
                 txtStatusContact.Text = row["Status"].ToString();
                 save();
 
             }
-
-
-
-
-
-            //int maxId =Int32.Parse(pointerToStorageManager.mainList.Select("Id = MAX(Id)")["id"]);
         }
-        public string changeDateFormatting(string convertingTo, string originalDate)
-        { 
-            string final = "";
-            try
-            {
-                //DateTime date = Convert.ToDateTime(originalDate);
-                //char date = Convert.ToChar(originalDate);
-                DateTime parsedDate = DateTime.Parse(originalDate, CultureInfo.InvariantCulture);
-                final = parsedDate.ToString(convertingTo);
-            }
-            catch { }
-            return final;
-        }
-
+        
     }
 
 }
