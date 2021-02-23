@@ -52,7 +52,7 @@ namespace NetworkMgr
             openContactList();
 
         }
-        private void openContactList()
+        public void openContactList()
         {
             if (pointerToContactDetail != null && pointerToContactDetail.Visible)
             {

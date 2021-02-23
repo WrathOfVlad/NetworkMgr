@@ -569,6 +569,7 @@ namespace NetworkMgr
             this.txtSkype.Name = "txtSkype";
             this.txtSkype.Size = new System.Drawing.Size(284, 27);
             this.txtSkype.TabIndex = 13;
+            this.txtSkype.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             // 
             // label9
             // 
@@ -638,6 +639,7 @@ namespace NetworkMgr
             this.Controls.Add(this.profilePic);
             this.Controls.Add(this.companyURL);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "ContactDetail";
             this.Text = "Contact Detail";

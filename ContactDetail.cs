@@ -26,7 +26,6 @@ namespace NetworkMgr
 
         private bool isEditable = true;
 
-
         private int id = 0;
         private DataTable contactLogDataTable = new System.Data.DataTable();
         public ContactDetail()
@@ -79,8 +78,8 @@ namespace NetworkMgr
             newRow["Facebook"] = FacebookEditable.Text;
             newRow["Skype"] = txtSkype.Text;
 
-            if ( id == 0)
-            { 
+            if (id == 0)
+            {
                 int maxId = 0;
                 foreach (DataRow dr in pointerToStorageManager.mainList.Rows)
                 {
@@ -105,16 +104,16 @@ namespace NetworkMgr
                 foreach (DataColumn column in newRow.Table.Columns)
                 {
                     try
-                    { 
+                    {
                         pointerToStorageManager.mainList.Rows[indexOfChosenId][column] = newRow[column];
                     }
                     catch { }
-                    
+
                 }
             }
             if (pointerToStorageManager.contactLogStorageLocation != null)
             {
-                
+
             }
             else
             {
@@ -128,9 +127,9 @@ namespace NetworkMgr
             //toggleEditable();
         }
         public void loadImage()
-        { 
+        {
             profilePic.Image = pointerToStorageManager.storageLocation.getImage(id);
-            
+
         }
         private void fillDataGridView()
         {
@@ -152,12 +151,12 @@ namespace NetworkMgr
         private void linkFacebook_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             clickedLink(FacebookEditable.Text);
-            
+
         }
         private void companyURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             clickedLink(companyURLEditable.Text);
-        } 
+        }
         private void clickedLink(string url)
         {
             try
@@ -204,7 +203,7 @@ namespace NetworkMgr
             toggleEditable();
             start();
             txtName.Focus();
-            
+
             //loadNotes();
         }
         public void loadDetail(int id)
@@ -251,7 +250,7 @@ namespace NetworkMgr
             {
                 foreach (Control x in this.Controls)
                 {
-                    if ((x is TextBox && x.Name != "txtStatusContact")) 
+                    if ((x is TextBox && x.Name != "txtStatusContact"))
                     {
                         TextBox text = ((TextBox)x);
                         text.BackColor = this.BackColor;
@@ -259,7 +258,7 @@ namespace NetworkMgr
                         text.BorderStyle = BorderStyle.None;
                         //HideCaret(text.Handle);
                         //text.TabStop = false;
-                        
+
                     }
                 }
                 dateBirthday.ReadOnly = true;
@@ -316,7 +315,7 @@ namespace NetworkMgr
 
                 isEditable = true;
             }
-            
+
         }
         private void toggleEdit_Click(object sender, EventArgs e)
         {
@@ -327,7 +326,7 @@ namespace NetworkMgr
             string filename;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
-            openFileDialog.Filter = ("png|*.png") ;
+            openFileDialog.Filter = ("png|*.png");
 
             filename = openFileDialog.FileName;
             if (filename != null && filename != "")
@@ -337,7 +336,7 @@ namespace NetworkMgr
                     profilePic.Image.Dispose();
                 }
                 catch { }
-                
+
                 Image img = Image.FromFile(filename);
                 if (id == 0)
                 {
@@ -346,7 +345,7 @@ namespace NetworkMgr
                 pointerToStorageManager.storageLocation.saveImage(id, img);
             }
             loadImage();
-            
+
         }
         private void addNew_Click(object sender, EventArgs e)
         {
@@ -355,7 +354,7 @@ namespace NetworkMgr
 
             pointerToContactLog.WindowState = FormWindowState.Maximized;
             pointerToContactLog.MdiParent = pointerToMain;
-            
+
             pointerToContactLog.setContactDetailPointer(this);
             pointerToContactLog.setMainPointer(pointerToMain);
             pointerToContactLog.setStorageManagerPointer(pointerToStorageManager);
@@ -364,7 +363,7 @@ namespace NetworkMgr
         private void save_Click(object sender, EventArgs e)
         {
             save();
-            toggleEditable();            
+            toggleEditable();
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -388,7 +387,37 @@ namespace NetworkMgr
             }
             save();
         }
-        
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (isEditable)
+                {
+                    toggleEditable();
+                }
+                else
+                {
+                    pointerToMain.openContactList();
+                }
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                if (isEditable)
+                {
+                    toggleEditable();
+                    loadDetail(id);
+                }
+                else
+                {
+                    pointerToMain.openContactList();
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 
 }
