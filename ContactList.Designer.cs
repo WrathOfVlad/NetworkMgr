@@ -72,6 +72,9 @@
             this.mainContactList.Size = new System.Drawing.Size(799, 331);
             this.mainContactList.TabIndex = 3;
             this.mainContactList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainContactList_CellDoubleClick);
+            this.mainContactList.ColumnSortModeChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.columnSorted);
+            this.mainContactList.Sorted += new System.EventHandler(this.mainContactList_Sorted);
+            this.mainContactList.Leave += new System.EventHandler(this.lostFocus);
             // 
             // search
             // 

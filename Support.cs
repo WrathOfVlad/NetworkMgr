@@ -342,7 +342,11 @@ namespace NetworkMgr
             DirectoryInfo dirSource = new DirectoryInfo(dataPath + @"\" + Config.getIdDirectory(id));
             DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath + @"\" + Config.getIdDirectory(id));
             string[] ignoreDir = { "backups" };
-            copyAll(dirSource, dirTarget, ignoreDir);
+            if(id != 0)
+            {
+                copyAll(dirSource, dirTarget, ignoreDir);
+            }
+            
                 
 
             //ZipFile.CreateFromDirectory(currentBackupPath,currentBackupPath);

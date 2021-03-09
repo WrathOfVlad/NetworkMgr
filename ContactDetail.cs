@@ -405,7 +405,7 @@ namespace NetworkMgr
         {
             if (keyData == Keys.Escape)
             {
-                if (isEditable)
+                if (isEditable && id != 0)
                 {
                     toggleEditable();
                     loadDetail(id);

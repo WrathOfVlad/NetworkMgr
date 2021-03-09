@@ -97,8 +97,14 @@ namespace NetworkMgr
         private void mainContactList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //int selectedRow = mainContactList.Rows.GetRowCount(DataGridViewElementStates.Selected);
-            int selectedRow = e.RowIndex;
-            
+            //int selectedRow = e.RowIndex;
+            enterDetail();
+        }
+        private void enterDetail()
+        {
+            int selectedRow = mainContactList.CurrentCell.RowIndex;
+
+
             if (selectedRow != -1)
             {
                 DataGridViewRow row = mainContactList.Rows[selectedRow];
@@ -106,8 +112,6 @@ namespace NetworkMgr
                 pointerToContactDetail.SuspendLayout();
                 pointerToContactDetail.loadDetail(id);
             }
-
-
         }
         public void mergeName()
         {
@@ -160,6 +164,34 @@ namespace NetworkMgr
             }
             currencyManager1.ResumeBinding();
             mainContactList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+        private void lostFocus(object sender, EventArgs e)
+        {
+            mainContactList.ClearSelection();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter && mainContactList.CurrentCell != null)
+            {
+                if(mainContactList.SelectedCells.Count == 1)
+                {
+                    enterDetail();
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void columnSorted(object sender, DataGridViewColumnEventArgs e)
+        {
+            mainContactList.ClearSelection(); 
+        }
+
+        private void mainContactList_Sorted(object sender, EventArgs e)
+        {
+            mainContactList.ClearSelection();
         }
     }
 }
