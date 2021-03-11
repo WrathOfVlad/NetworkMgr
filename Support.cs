@@ -36,6 +36,15 @@ namespace NetworkMgr
             return dirName;
         }
     }
+    public static class ExtensionMethods
+    {
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
+    }
     public class StorageManager
     {
         //public DataTable mainList = new DataTable();
@@ -333,7 +342,11 @@ namespace NetworkMgr
             DirectoryInfo dirSource = new DirectoryInfo(dataPath + @"\" + Config.getIdDirectory(id));
             DirectoryInfo dirTarget = new DirectoryInfo(currentBackupPath + @"\" + Config.getIdDirectory(id));
             string[] ignoreDir = { "backups" };
-            copyAll(dirSource, dirTarget, ignoreDir);
+            if(id != 0)
+            {
+                copyAll(dirSource, dirTarget, ignoreDir);
+            }
+            
                 
 
             //ZipFile.CreateFromDirectory(currentBackupPath,currentBackupPath);

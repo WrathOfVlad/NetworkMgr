@@ -161,7 +161,7 @@
             // 
             this.dateDate.Location = new System.Drawing.Point(132, 30);
             this.dateDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateDate.Mask = "00/00/0000";
+            this.dateDate.Mask = "0000-00-00";
             this.dateDate.Name = "dateDate";
             this.dateDate.Size = new System.Drawing.Size(100, 27);
             this.dateDate.TabIndex = 1;
@@ -171,7 +171,7 @@
             // 
             this.dateNextTime.Location = new System.Drawing.Point(132, 130);
             this.dateNextTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dateNextTime.Mask = "00/00/0000";
+            this.dateNextTime.Mask = "0000-00-00";
             this.dateNextTime.Name = "dateNextTime";
             this.dateNextTime.Size = new System.Drawing.Size(100, 27);
             this.dateNextTime.TabIndex = 3;

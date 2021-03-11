@@ -46,9 +46,9 @@ namespace NetworkMgr
         public void save()
         {
             DataRow row = contactLogManager.NewRow();
-            row["Date"] = pointerToContactDetail.changeDateFormatting("yyyy/MM/dd", dateDate.Text);
+            row["Date"] = dateDate.Text;
             row["Actions"] = txtActions.Text;
-            row["Next Time"] = pointerToContactDetail.changeDateFormatting("yyyy/MM/dd", dateNextTime.Text);
+            row["Next Time"] = dateNextTime.Text;
             row["Status"] = txtStatus.Text;
             row["Type"] = txtType.Text;
             row["Notes"] = txtNotes.Text;

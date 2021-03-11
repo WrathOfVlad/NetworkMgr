@@ -114,7 +114,7 @@
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
             this.versionToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.versionToolStripMenuItem.Text = "Version: 1.2.1";
+            this.versionToolStripMenuItem.Text = "Version: 1.2.3";
             // 
             // Main
             // 

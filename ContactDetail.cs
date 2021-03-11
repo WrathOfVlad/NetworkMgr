@@ -26,9 +26,8 @@ namespace NetworkMgr
 
         private bool isEditable = true;
 
-
         private int id = 0;
-        private System.Data.DataTable contactLogDataTable = new System.Data.DataTable();
+        private DataTable contactLogDataTable = new System.Data.DataTable();
         public ContactDetail()
         {
             //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -66,21 +65,21 @@ namespace NetworkMgr
             newRow["Email 3"] = txtEmail3.Text;
             newRow["Phone 1"] = txtPhone1.Text;
             newRow["Phone 2"] = txtPhone2.Text;
-            newRow["Birthday"] = changeDateFormatting("yyyy/MM/dd", dateBirthday.Text.ToString());
+            newRow["Birthday"] = dateBirthday.Text.ToString();
             newRow["Address"] = txtAddress.Text;
             newRow["Company"] = txtCompany.Text;
             newRow["Role"] = txtRole.Text;
             newRow["Location"] = txtLocation.Text;
             newRow["Contact Status"] = txtStatusContact.Text;
-            newRow["Last Contact"] = changeDateFormatting("yyyy/MM/dd", dateLastContact.Text.ToString());
-            newRow["Next Contact"] = changeDateFormatting("yyyy/MM/dd", dateNextContact.Text.ToString());
+            newRow["Last Contact"] = dateLastContact.Text.ToString();
+            newRow["Next Contact"] = dateNextContact.Text.ToString();
             newRow["Company URL"] = companyURLEditable.Text;
             newRow["Linkedin"] = linkedinEditable.Text;
             newRow["Facebook"] = FacebookEditable.Text;
             newRow["Skype"] = txtSkype.Text;
 
-            if ( id == 0)
-            { 
+            if (id == 0)
+            {
                 int maxId = 0;
                 foreach (DataRow dr in pointerToStorageManager.mainList.Rows)
                 {
@@ -88,16 +87,16 @@ namespace NetworkMgr
                     int currentId = Int32.Parse(dr["Id"].ToString());
                     maxId = Math.Max(currentId, maxId);
                 }
-                this.id = maxId + 1;
+                id = maxId + 1;
 
                 //int maxId =Int32.Parse(pointerToStorageManager.mainList.Select("Id = MAX(Id)")["id"]);
-                newRow["Id"] = id;
+                newRow["Id"] = Config.getIdDirectory(id);
                 pointerToStorageManager.mainList.Rows.Add(newRow);
                 pointerToStorageManager.storageLocation.addNewContact(id);
             }
             else
             {
-                newRow["Id"] = id;
+                newRow["Id"] = Config.getIdDirectory(id);
                 //string getIdRow = String.Format("Id = '{0}'", id.ToString());
                 DataRow rowOfChosenId = pointerToStorageManager.mainList.Select("Convert(Id, 'System.Int32') =" + id)[0];
                 int indexOfChosenId = pointerToStorageManager.mainList.Rows.IndexOf(rowOfChosenId);
@@ -105,16 +104,16 @@ namespace NetworkMgr
                 foreach (DataColumn column in newRow.Table.Columns)
                 {
                     try
-                    { 
+                    {
                         pointerToStorageManager.mainList.Rows[indexOfChosenId][column] = newRow[column];
                     }
                     catch { }
-                    
+
                 }
             }
             if (pointerToStorageManager.contactLogStorageLocation != null)
             {
-                
+
             }
             else
             {
@@ -122,12 +121,15 @@ namespace NetworkMgr
             }
 
             pointerToStorageManager.storageLocation.saveNotes(id, txtNotes.Text);
+
+            pointerToStorageManager.storageLocation.save(pointerToStorageManager.mainList);
+            pointerToContactList.mergeName();
             //toggleEditable();
         }
         public void loadImage()
-        { 
+        {
             profilePic.Image = pointerToStorageManager.storageLocation.getImage(id);
-            
+
         }
         private void fillDataGridView()
         {
@@ -149,12 +151,12 @@ namespace NetworkMgr
         private void linkFacebook_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             clickedLink(FacebookEditable.Text);
-            
+
         }
         private void companyURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             clickedLink(companyURLEditable.Text);
-        } 
+        }
         private void clickedLink(string url)
         {
             try
@@ -201,13 +203,12 @@ namespace NetworkMgr
             toggleEditable();
             start();
             txtName.Focus();
-            
+
             //loadNotes();
         }
         public void loadDetail(int id)
         {
             isEditable = true;
-            System.Data.DataTable newTable = pointerToStorageManager.mainList;
             DataRow[] rows = pointerToStorageManager.mainList.Select("Convert(Id, 'System.Int32') =" + id);
             DataRow row = rows[0];
             this.id = int.Parse(row["Id"].ToString());
@@ -218,14 +219,14 @@ namespace NetworkMgr
             txtEmail3.Text = row["Email 3"].ToString();
             txtPhone1.Text = row["Phone 1"].ToString();
             txtPhone2.Text = row["Phone 2"].ToString();
-            dateBirthday.Text = changeDateFormatting("dd/MM/yyyy", row["Birthday"].ToString());
+            dateBirthday.Text = row["Birthday"].ToString();
             txtAddress.Text = row["Address"].ToString();
             txtCompany.Text = row["Company"].ToString();
             txtRole.Text = row["Role"].ToString();
             txtLocation.Text = row["Location"].ToString();
             txtStatusContact.Text = row["Contact Status"].ToString();
-            dateLastContact.Text = changeDateFormatting("dd/MM/yyyy", row["Last Contact"].ToString());
-            dateNextContact.Text = changeDateFormatting("dd/MM/yyyy", row["Next Contact"].ToString());
+            dateLastContact.Text = row["Last Contact"].ToString();
+            dateNextContact.Text = row["Next Contact"].ToString();
             companyURLEditable.Text = row["Company URL"].ToString();
             FacebookEditable.Text = row["Facebook"].ToString();
             linkedinEditable.Text = row["Linkedin"].ToString();
@@ -249,7 +250,7 @@ namespace NetworkMgr
             {
                 foreach (Control x in this.Controls)
                 {
-                    if ((x is TextBox && x.Name != "txtStatusContact")) 
+                    if ((x is TextBox && x.Name != "txtStatusContact"))
                     {
                         TextBox text = ((TextBox)x);
                         text.BackColor = this.BackColor;
@@ -257,7 +258,7 @@ namespace NetworkMgr
                         text.BorderStyle = BorderStyle.None;
                         //HideCaret(text.Handle);
                         //text.TabStop = false;
-                        
+
                     }
                 }
                 dateBirthday.ReadOnly = true;
@@ -314,7 +315,7 @@ namespace NetworkMgr
 
                 isEditable = true;
             }
-            
+
         }
         private void toggleEdit_Click(object sender, EventArgs e)
         {
@@ -325,7 +326,7 @@ namespace NetworkMgr
             string filename;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog();
-            openFileDialog.Filter = ("png|*.png") ;
+            openFileDialog.Filter = ("png|*.png");
 
             filename = openFileDialog.FileName;
             if (filename != null && filename != "")
@@ -335,7 +336,7 @@ namespace NetworkMgr
                     profilePic.Image.Dispose();
                 }
                 catch { }
-                
+
                 Image img = Image.FromFile(filename);
                 if (id == 0)
                 {
@@ -344,7 +345,7 @@ namespace NetworkMgr
                 pointerToStorageManager.storageLocation.saveImage(id, img);
             }
             loadImage();
-            
+
         }
         private void addNew_Click(object sender, EventArgs e)
         {
@@ -353,7 +354,7 @@ namespace NetworkMgr
 
             pointerToContactLog.WindowState = FormWindowState.Maximized;
             pointerToContactLog.MdiParent = pointerToMain;
-            
+
             pointerToContactLog.setContactDetailPointer(this);
             pointerToContactLog.setMainPointer(pointerToMain);
             pointerToContactLog.setStorageManagerPointer(pointerToStorageManager);
@@ -363,9 +364,6 @@ namespace NetworkMgr
         {
             save();
             toggleEditable();
-            pointerToStorageManager.storageLocation.save(pointerToStorageManager.mainList);
-            pointerToContactList.mergeName();
-            
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -383,33 +381,43 @@ namespace NetworkMgr
             {
                 DataRow row = rows[0];
 
-                dateLastContact.Text = changeDateFormatting("dd/MM/yyyy", lastDate.ToString());
-                dateNextContact.Text = changeDateFormatting("dd/MM/yyyy", row["Next Time"].ToString());
+                dateLastContact.Text = lastDate.ToString();
+                dateNextContact.Text = row["Next Time"].ToString();
                 txtStatusContact.Text = row["Status"].ToString();
-                save();
-
             }
-
-
-
-
-
-            //int maxId =Int32.Parse(pointerToStorageManager.mainList.Select("Id = MAX(Id)")["id"]);
+            save();
         }
-        public string changeDateFormatting(string convertingTo, string originalDate)
-        { 
-            string final = "";
-            try
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
             {
-                //DateTime date = Convert.ToDateTime(originalDate);
-                //char date = Convert.ToChar(originalDate);
-                DateTime parsedDate = DateTime.Parse(originalDate, CultureInfo.InvariantCulture);
-                final = parsedDate.ToString(convertingTo);
+                if (isEditable)
+                {
+                    toggleEditable();
+                }
+                else
+                {
+                    pointerToMain.openContactList();
+                }
             }
-            catch { }
-            return final;
         }
-
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                if (isEditable && id != 0)
+                {
+                    toggleEditable();
+                    loadDetail(id);
+                }
+                else
+                {
+                    pointerToMain.openContactList();
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 
 }
