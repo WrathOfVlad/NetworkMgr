@@ -87,10 +87,6 @@ namespace NetworkMgr
                 string today = date.ToString("yyyy-MM-dd");
                 expression = String.Format("[{0}]='{1}'", dateColumnName, today);
             }
-            
-
-            
-
             DataRow[] rows = pointerToStorageManager.mainList.Select(expression);
 
             foreach (DataRow row in rows)
@@ -98,9 +94,6 @@ namespace NetworkMgr
                 string formattedNotification = String.Format(notificationMessage, row["Name"] + " " + row["Surname"]);
                 sendNotification(toastNotificationHeader, formattedNotification);
             }
-
-
-            
         }
         private void sendNotification(string header, string content)
         {
